@@ -1,0 +1,25 @@
+#!/bin/bash
+#Lee en los logs los inicios de sesión en una
+#determinada fecha
+#Si no pasa la fecha por parámetro entramos en modo interactivo
+if [ -z "$1" ] || [ -z "$2" ]; then
+	#Damos los valores por defecto
+	DIA=$(date +%d)
+	MES=$(date +%b) #Formato, p. ej: feb
+	#Damos la opción al usuario de leer otro día y mes
+	echo -n "Dia a leer (por defecto $DIA): "
+	read nuevoDia
+	DIA=${nuevoDia:=$DIA}
+	echo -n "Mes a leer (por defecto $MES): "
+	read nuevoMes
+	MES=${nuevoMes:=$MES}
+	echo "Inicios de sesion en $MES $DIA:"
+else #Si la pasa por parámetro la usamos
+	#Le damos los valores de los parámetros
+	DIA=$1
+	MES=$2
+fi
+#Damos formato a la fecha
+	FECHA="$MES $DIA"
+#Leemos el log
+echo "$(grep -i --regexp="$FECHA" /var/log/auth.log | grep -v -i 'cron' | grep -i 'opened' | grep -i 'session')"

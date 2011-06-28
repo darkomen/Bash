@@ -1,0 +1,33 @@
+#!/bin/bash
+#copia de seguridad
+echo ""
+echo "          Creando copia de seguridad"
+echo "----------------------------------------------"
+echo ""
+FECHA=`date +%d-%m-%Y`
+#directorios
+#echo "    -= Directorio Home =-"
+if [ -d "/media/aux/backups/$FECHA" ]; then
+        echo "Ya existe /media/aux/backups/$FECHA"
+else
+        echo "Creando backup /media/aux/backups/$FECHA"
+        mkdir /media/aux/backups/$FECHA
+        chmod 700 /media/aux/backups/$FECHA
+        cd /media/aux/backups/$FECHA
+        tar czf darkomen.tar.gz /home/darkomen/ 
+        chmod 700 /media/aux/backups/$FECHA/
+        echo "    -= Archivos sueltos =-"
+	echo " Fstab"
+        cp /etc/fstab /media/aux/backups/$FECHA/
+	echo "sources.list"
+        cp /etc/apt/sources.list /media/aux/backups/$FECHA/
+	echo "xorg.conf"
+        cp /etc/X11/xorg.conf /media/aux/backups/$FECHA/
+	echo "menu.lst"
+        cp /boot/grub/menu.lst /media/aux/backups/$FECHA/
+
+fi
+echo ""
+echo ""
+echo ".: Copia de seguridad finalizada :."
+echo ""
