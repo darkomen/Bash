@@ -5,5 +5,8 @@
 #- Santiago Lopez Pina - Julio 2012
 
 DIR="/Applications/"
-for i in ls *.stl`;do
+mkdir gcodes
+cd gcodes
+
+for i in `ls ../*.stl`;do
 	 python ${DIR}/skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $i;done
