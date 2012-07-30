@@ -6,7 +6,6 @@
 
 DIR="/Applications/"
 mkdir gcodes
-cd gcodes
-
-for i in `ls ../*.stl`;do
+for i in `ls *.stl`;do
 	 python ${DIR}/skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $i;done
+mv *.gcode ./gcodes
